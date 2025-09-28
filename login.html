@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="canonical" href="https://example.com/login.html"/>
+  <title>تسجيل الدخول | عسل وبن</title>
+  <meta name="description" content="تسجيل الدخول إلى متجر عسل وبن."/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="enhance.css">
+  <style>
+    /* تخصيصات بسيطة لواجهة تسجيل الدخول */
+    .auth-wrap{max-width:520px;margin-inline:auto}
+    .auth-card{padding:1.25rem;border-radius:16px;border:1px solid #e5e7eb;background:var(--card)}
+    .auth-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.75rem}
+    .field{display:grid;gap:.4rem;margin:.65rem 0}
+    .field .row{display:flex;gap:.5rem;align-items:center}
+    .field .row > *{flex:1}
+    .pwd-wrap{display:flex;gap:.5rem}
+    .pwd-wrap input{flex:1}
+    .hr{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
+    .hr::before,.hr::after{content:"";height:1px;background:#e5e7eb;flex:1}
+    .social{display:grid;gap:.5rem}
+    .social .btn{justify-content:center}
+    .help{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap}
+    .terms{font-size:.85rem;color:var(--muted)}
+    .brand-mini{display:flex;align-items:center;gap:.5rem}
+    .brand-mini img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+    .error{color:#dc2626}
+  </style>
+</head>
+<body>
+<header class="container header">
+  <a class="brand" href="index.html">
+    <img src="profile.jpg" alt="صورة محمد نبيه" loading="lazy" onerror="this.style.display='none'">
+    <div>
+      <h1>محمد نبيه لطف اليوسفي</h1>
+      <div class="kv"><span class="badge">صانع المحتوى</span><span class="muted">عسل وبن طبيعي</span></div>
+    </div>
+  </a>
+  <nav class="nav" aria-label="قائمة الموقع">
+  <a href="index.html">الرئيسية</a>
+  <a href="products.html">المنتجات</a>
+  <a href="blog.html">المدونة</a>
+  <a href="about.html">من نحن</a>
+  <a href="contact.html">اتصل بنا</a>
+  <a href="cart.html">عربة التسوق</a>
+  <a href="login.html">تسجيل الدخول</a>
+</nav>
+
+  <button id="theme-toggle" class="btn" aria-label="تبديل الوضع">🌓</button>
+</header>
+
+<main class="container auth-wrap">
+  <div class="brand-mini" style="margin-bottom:.5rem">
+    <img src="favicon.svg" alt="">
+    <div>
+      <strong>تسجيل الدخول إلى عسل وبن</strong><br>
+      <span class="muted">ادخل بياناتك للمتابعة</span>
+    </div>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-head">
+      <h2 style="margin:0">مرحباً بك</h2>
+      <a href="index.html" class="btn">الرجوع للمتجر</a>
+    </div>
+
+    <form id="login-form" data-validate novalidate>
+      <!-- حماية شكلية: رمز CSRF وهمي للمثال -->
+      <input type="hidden" name="csrf_token" id="csrf_token" value="">
+
+      <div class="field">
+        <label for="email">البريد الإلكتروني</label>
+        <input class="input" id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="username">
+      </div>
+
+      <div class="field">
+        <div class="help" style="margin:0">
+          <label for="password" style="margin:0">كلمة المرور</label>
+          <a href="reset.html" class="muted">نسيت كلمة المرور؟</a>
+        </div>
+        <div class="pwd-wrap">
+          <input class="input" id="password" name="password" type="password" required placeholder="••••••••" minlength="6" autocomplete="current-password">
+          <button type="button" class="btn" id="toggle-pwd" aria-controls="password" aria-pressed="false">إظهار</button>
+        </div>
+      </div>
+
+      <div class="field row" style="align-items:center">
+        <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer">
+          <input type="checkbox" id="remember" name="remember"> تذكرني
+        </label>
+        <a href="register.html" class="muted">مستخدم جديد؟ إنشاء حساب</a>
+      </div>
+
+      <button class="btn" type="submit" style="width:100%;justify-content:center">تسجيل الدخول</button>
+
+      <div class="hr"><span class="muted" style="white-space:nowrap">أو</span></div>
+
+      <div class="social">
+        <button type="button" class="btn" id="btn-google" aria-label="تسجيل الدخول عبر Google">متابعة عبر Google</button>
+        <button type="button" class="btn" id="btn-apple" aria-label="تسجيل الدخول عبر Apple">متابعة عبر Apple</button>
+      </div>
+
+      <p class="terms" style="margin-top:1rem">
+        بالدخول، أنت توافق على الشروط وسياسة الخصوصية.
+      </p>
+
+      <div id="login-output" class="form-output" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</main>
+
+<footer class="container">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>
+      <strong>محمد نبيه لطف اليوسفي</strong><br>
+      هاتف: <a href="tel:778919949">778919949</a> •
+      <a href="mailto:mohammedalyousifi185@gmail.com">mohammedalyousifi185@gmail.com</a>
+    </div>
+    <div class="muted">نسخة تجريبية</div>
+  </div>
+</footer>
+
+<!-- سكربتات عامة -->
+<script src="enhance.js"></script>
+
+<!-- سكربت خاص بالصفحة: تبديل إظهار كلمة المرور + إرسال تجريبي -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // تعبئة CSRF تجريبياً
+    const csrf = document.getElementById('csrf_token');
+    if (csrf) csrf.value = (crypto.getRandomValues(new Uint32Array(1))[0]).toString(16);
+
+    // إظهار/إخفاء كلمة المرور
+    const pwd = document.getElementById('password');
+    const tgl = document.getElementById('toggle-pwd');
+    if (tgl && pwd) {
+      tgl.addEventListener('click', () => {
+        const isPwd = pwd.type === 'password';
+        pwd.type = isPwd ? 'text' : 'password';
+        tgl.textContent = isPwd ? 'إخفاء' : 'إظهار';
+        tgl.setAttribute('aria-pressed', String(isPwd));
+      });
+    }
+
+    // إرسال تجريبي (بدون خادم)
+    const form = document.getElementById('login-form');
+    const out  = document.getElementById('login-output');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // تحقق يدوي إضافي بسيط
+      const email = (document.getElementById('email').value || '').trim();
+      const pass  = (pwd.value || '').trim();
+      const ok = email && pass.length >= 6;
+
+      if (!ok) {
+        out.textContent = 'تحقق من البريد وكلمة المرور (٦ أحرف على الأقل).';
+        out.classList.add('error');
+        return;
+      }
+
+      // محاكاة نجاح
+      out.classList.remove('error');
+      out.textContent = 'تم تسجيل الدخول محلياً. سيُعاد توجيهك…';
+      setTimeout(() => { window.location.href = 'index.html'; }, 800);
+    });
+
+    // أزرار اجتماعية شكلية
+    document.getElementById('btn-google')?.addEventListener('click', () => {
+      alert('زر شكلّي: اربطه بمزوّد الهوية لاحقاً.');
+    });
+    document.getElementById('btn-apple')?.addEventListener('click', () => {
+      alert('زر شكلّي: اربطه بمزوّد الهوية لاحقاً.');
+    });
+  });
+</script>
+</body>
+</html>
